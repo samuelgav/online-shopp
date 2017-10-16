@@ -5,6 +5,8 @@ import java.util.List;
 import net.kzn.shoopingbackend.dto.Category;
 
 public interface CategoryDao {
-List<Category> list();
-Category get(int id);
+
+	boolean add(Category category);
+	List<Category> list();
+	Category get(int id);
 }

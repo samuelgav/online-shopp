@@ -7,11 +7,18 @@ import javax.xml.ws.RespectBinding;
 
 import net.kzn.shoopingbackend.dto.Category;
 import net.kzn.shoppingbackend.dao.CategoryDao;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("categoryDAO")
 public class CategoryDaoImpl implements CategoryDao {
 
+	@Autowired
+	private SessionFactory sessionFactory;
+	
 	private static List<Category> categories=new ArrayList<>();
 	
 	static{
@@ -60,6 +67,18 @@ public class CategoryDaoImpl implements CategoryDao {
 			if(category.getId()==id) return category;
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public boolean add(Category category) {
+		try {
+			sessionFactory.getCurrentSession().persist(category);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
