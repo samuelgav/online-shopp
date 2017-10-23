@@ -1,4 +1,4 @@
-package net.kzn.shoopingbackend.dto;
+package net.kzn.shoppingbackend.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -3,10 +3,8 @@ package net.kzn.shoppingbackend.daoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.ws.RespectBinding;
-
-import net.kzn.shoopingbackend.dto.Category;
 import net.kzn.shoppingbackend.dao.CategoryDao;
+import net.kzn.shoppingbackend.dto.Category;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

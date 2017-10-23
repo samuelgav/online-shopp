@@ -1,4 +1,4 @@
-package net.kzn.shoopingbackend.config;
+package net.kzn.shoppingbackend.config;
 
 import java.util.Properties;
 
@@ -14,7 +14,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan(basePackages={"net.kzn.shooping.dto"})
+@ComponentScan(basePackages={"net.kzn.shoppingbackend.dto"})
 @EnableTransactionManagement
 public class HibernateConfig {
 
@@ -25,14 +25,12 @@ public class HibernateConfig {
 		private final static String DATABASE_PASSWORD="";
 		
 		@Bean
-		private DataSource getDataSource(){
+		public DataSource getDataSource(){
 			BasicDataSource dataSource=new BasicDataSource();
-			
 			dataSource.setDriverClassName(DATABASE_DRIVER);
 			dataSource.setUrl(DATABASE_URL);
 			dataSource.setUsername(DATABASE_USERNAME);
 			dataSource.setPassword(DATABASE_PASSWORD);
-			
 			return dataSource;
 		}
 		
@@ -40,21 +38,21 @@ public class HibernateConfig {
 		public SessionFactory getSessionFactory(DataSource dataSource){
 			LocalSessionFactoryBuilder builder=new LocalSessionFactoryBuilder(dataSource);
 			builder.addProperties(getHibernateProperties());
-			builder.scanPackages("net.kzn.shoopingbackend.dto");
+			builder.scanPackages("net.kzn.shoppingbackend.dto");
 			return builder.buildSessionFactory();
 		}
 		
-		private Properties getHibernateProperties(){
+		private Properties getHibernateProperties() {
 			Properties properties=new Properties();
-			properties.put("hibernate.dialect", DATABASE_DIALECT);
-			properties.put("hibernate.show_sql", "true");
-			properties.put("hibernate.format_sql", "true");
+			properties.put("hibernate.dialect",DATABASE_DIALECT );
+			properties.put("hibernate.show_sql","true");
+			properties.put("hibernate.format_sql","true");
 			return properties;
 		}
-		
+
 		@Bean
 		public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
-			HibernateTransactionManager transactionManager=new HibernateTransactionManager();
+			HibernateTransactionManager transactionManager=new HibernateTransactionManager(sessionFactory);
 			return transactionManager;
 		}
 		
